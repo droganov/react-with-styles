@@ -43,6 +43,8 @@ export function withStyles(
     // NOTE: Use a class here so components are ref-able if need be:
     // eslint-disable-next-line react/prefer-stateless-function
     class WithStyles extends BaseClass {
+      proc = (wrappedComponentInstance) =>
+        wrappedComponentInstance.method();
       render() {
         const { themeName } = this.context;
 
@@ -63,6 +65,7 @@ export function withStyles(
             {...{
               [themePropName]: ThemedStyleSheet.get(themeName),
               [stylesPropName]: styleDef ? styleDef(themeName) : EMPTY_STYLES,
+              ref: this.proc,
             }}
           />
         );
